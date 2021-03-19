@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">AndroidEventos</string>
+    <string name="agenda">Agenda</string>
+    <string name="conexao_necessaria">É necessário estar conectado com a internet.</string>
+    <string name="erro_solicitacao">Erro ao realizar solicitação.</string>
+    <string name="detalhes">Detalhes</string>
+    <string name="check_in">Check-in</string>
+    <string name="compartilhar">Compartilhar</string>
+    <string name="hintEmail">E-mail</string>
+    <string name="hintNome">Nome</string>
+    <string name="bnt_enviar">Enviar</string>
+    <string name="campo_obrigatorio">Campo obrigatório</string>
+    <string name="erro_salvar">Erro ao salvar dados</string>
+    <string name="check_in_sucesso">Check-in realizado com sucesso</string>
+    <string name="btn_localizacao">Localização</string>
+    <string name="url_maps">http://maps.google.com/maps?q=%1$s,%2$s&amp;ll=%1$s,%2$s&amp;z=17</string>
+    <string name="fechar">Fechar</string>
+    <!--    <string name="url_maps">http://maps.google.com/?ie=UTF8&amp;hq=&amp;ll=%1$s,%2$s&amp;z=13</string>-->
+</resources>

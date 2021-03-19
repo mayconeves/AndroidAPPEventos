@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarCheckIn"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:fitsSystemWindows="true"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarCheckIn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <ImageView
+                android:id="@+id/imageCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/agenda"
+                app:layout_collapseMode="parallax" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBarCheckIn"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal|center_vertical"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/linearCheckIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txvTituloCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="24dp"
+                android:textColor="@color/textoPrincipal"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txtNomeCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_texte_largura"
+                android:layout_marginStart="@dimen/edit_text_margin_start"
+                android:layout_marginTop="@dimen/edit_text_margin_top"
+                android:layout_marginEnd="@dimen/edit_text_margin_end"
+                android:background="@drawable/border"
+                android:ems="10"
+                android:hint="@string/hintNome"
+                android:inputType="textPersonName"
+                android:padding="@dimen/edit_text_padding"
+                android:textColor="@color/textoPrincipal"
+                android:textColorHint="@color/textoPrincipal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <EditText
+                android:id="@+id/txtEmailCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_texte_largura"
+                android:layout_marginStart="@dimen/edit_text_margin_start"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/edit_text_margin_end"
+                android:background="@drawable/border"
+                android:ems="10"
+                android:hint="@string/hintEmail"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/edit_text_padding"
+                android:textColor="@color/textoPrincipal"
+                android:textColorHint="@color/textoPrincipal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnEnviar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_altura"
+                android:layout_marginLeft="@dimen/btn_margin_lados"
+                android:layout_marginTop="60dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="@dimen/btn_margin_lados"
+                android:background="@drawable/border_background"
+                android:padding="12dp"
+                android:text="@string/bnt_enviar"
+                android:textColor="@android:color/background_light"
+                android:textSize="@dimen/btn_tamanho_texto"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
