@@ -122,8 +122,12 @@ public class AndroidUtils {
         toastAlert.show();
     }
 
+    /**
+     * OBJETIVO.......: MSG DE SNACKBAR
+     * @param msg
+     */
     public static void msgSnackbarSaida(CollapsingToolbarLayout collapsingToolbarLayout, String msg) {
-        Snackbar snackbar = Snackbar.make(collapsingToolbarLayout,msg, Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(collapsingToolbarLayout,msg, Snackbar.LENGTH_INDEFINITE);
         snackbar.show();
     }
 

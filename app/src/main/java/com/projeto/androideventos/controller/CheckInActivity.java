@@ -1,7 +1,6 @@
 package com.projeto.androideventos.controller;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +29,7 @@ import org.json.JSONObject;
 
 import static com.projeto.androideventos.R.string.check_in;
 
-public class CheckInActivity extends AppCompatActivity implements View.OnClickListener{
+public class CheckInActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * OBJETIVO.......: INSTANCIAR COMPONENTES
@@ -71,18 +70,18 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
          * POPULAR OS RESPECTIVOS CAMPOS
          */
         Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            idEvento     = extras.getInt("idEvento");
-            urlImagem    = extras.getString("imagemEvento");
+        if (extras != null) {
+            idEvento = extras.getInt("idEvento");
+            urlImagem = extras.getString("imagemEvento");
             tituloEvento = extras.getString("tituloEvento");
 
             if (urlImagem != null)
-                /**
-                 * OBJETIVO.......: CARREGAR IMAGEM
-                 */
+            /**
+             * OBJETIVO.......: CARREGAR IMAGEM
+             */
                 AndroidUtils.downloadImageTask(urlImagem, 1080, 480, 10, 0, imgEvento);
 
-            if(tituloEvento != null)
+            if (tituloEvento != null)
                 txtTitulo.setText(tituloEvento);
         }
     }
@@ -92,14 +91,14 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
      */
     private void associarComponentes() {
 
-        collapsingToolbarLayout     = findViewById(R.id.collapsingToolbarCheckIn);
-        progressBar                 = findViewById(R.id.progressBarCheckIn);
-        txtNome                     = findViewById(R.id.txtNomeCheckIn);
-        txtEmail                    = findViewById(R.id.txtEmailCheckIn);
-        btnEnviar                   = findViewById(R.id.btnEnviar);
-        imgEvento                   = findViewById(R.id.imageCheckIn);
-        txtTitulo                   = findViewById(R.id.txvTituloCheckIn);
-        linearCheckIn               = findViewById(R.id.linearCheckIn);
+        collapsingToolbarLayout = findViewById(R.id.collapsingToolbarCheckIn);
+        progressBar = findViewById(R.id.progressBarCheckIn);
+        txtNome = findViewById(R.id.txtNomeCheckIn);
+        txtEmail = findViewById(R.id.txtEmailCheckIn);
+        btnEnviar = findViewById(R.id.btnEnviar);
+        imgEvento = findViewById(R.id.imageCheckIn);
+        txtTitulo = findViewById(R.id.txvTituloCheckIn);
+        linearCheckIn = findViewById(R.id.linearCheckIn);
 
         btnEnviar.setOnClickListener(this);
     }
@@ -120,14 +119,49 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
                         /**
                          * OBJETIVO.......: DADOS ENVIADO COM SUCESSO
                          */
-                        progressBar.setVisibility(View.GONE);
+                        //progressBar.setVisibility(View.GONE);
                         //AndroidUtils.msgToastSaida(CheckInActivity.this, getString(R.string.check_in_sucesso));
-                        msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.check_in_sucesso));
-                        /**
-                         * OBJETIVO.......: IR PARA TELA INICIAL
-                         */
+                        //msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.check_in_sucesso));
                         //irParaTelaInicial();
 
+
+                        /**
+                         * TODAS AS TENTATIVAS RESULTARAM EM ERRO AO ENVIAR
+                         * "Max number of elements reached for this resource!"
+                         * SUPONDO que ESSA SERIA A RESPOSTA DE CONFIRMACAO DO CHECK-IN
+                         * {"status": true}
+                         */
+                        progressBar.setVisibility(View.GONE);
+                        try {
+                            // Construir possivel resposta
+                            /*
+                            JSONArray jsonResposta = new JSONArray();
+                            JSONObject dadosResposta = new JSONObject();
+                            dadosResposta.put("status", true);
+                            jsonResposta.put(dadosResposta);
+                            Log.i("RESPONSE", "Dados response" + jsonResposta.toString());*/
+
+                            /**
+                             * OBJETIVO.......: DADOS ENVIADO COM SUCESSO
+                             */
+                            // Acesso a resposta
+                            //JSONObject object = jsonResposta.getJSONObject(0);
+                            JSONObject object = response.getJSONObject(0);
+                            if (object.getString("status").equals("true")) {
+                                /**
+                                 * OBJETIVO.......: CHECK-IN CONFIRMADO
+                                 */
+                                msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.check_in_sucesso));
+                            } else {
+                                /**
+                                 * OBJETIVO.......: CHECK-IN NAO CONFIRMADO
+                                 */
+                                msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.erro_salvar));
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
 
@@ -142,7 +176,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
                         progressBar.setVisibility(View.GONE);
 
                         //"Max number of elements reached for this resource!"
-                        if(error.networkResponse.statusCode == 400){
+                        if (error.networkResponse.statusCode == 400) {
                             //AndroidUtils.msgToastSaida(CheckInActivity.this, getString(R.string.erro_salvar));
                             msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.erro_salvar));
                             /**
@@ -168,18 +202,26 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
                          * {"status": true}
                          */
                         /*
-                        JSONArray jsonResposta = new JSONArray();
-                        JSONObject dadosResposta = new JSONObject();
                         try {
+                            // Construir possivel resposta
+                            JSONArray jsonResposta = new JSONArray();
+                            JSONObject dadosResposta = new JSONObject();
                             dadosResposta.put("status", true);
                             jsonResposta.put(dadosResposta);
-                            //Log.i("RESPONSE", "Dados response" + jsonResposta.toString());
-                            AndroidUtils.msgToastSaida(CheckInActivity.this, getString(R.string.check_in_sucesso));
-                            irParaTelaInicial();
+                            Log.i("RESPONSE", "Dados response" + jsonResposta.toString());
+
+                            // Acesso a resposta
+                            JSONObject object = jsonResposta.getJSONObject(0);
+                            if(object.getString("status").equals("true")){
+                                msgSnackbarSaida(collapsingToolbarLayout, getString(R.string.check_in_sucesso));
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        */
+
+                         */
+
                     }
                 }
         );
@@ -197,21 +239,6 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         */
-
-
-        /**
-         * TEMPO PARA EXIBIR SNACKBAR E FECHAR A JANELA
-         */
-        /*
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        }, 2500);
-         */
-
         finish();
     }
 
@@ -220,7 +247,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
      */
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnEnviar:
                 metodoEnviar();
                 break;
@@ -239,17 +266,17 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
         nome = txtNome.getText().toString();
         email = txtEmail.getText().toString();
 
-        if(nome.equals("")){
+        if (nome.equals("")) {
             txtNome.setError(getString(R.string.campo_obrigatorio));
             validar = false;
         }
 
-        if(email.equals("")){
+        if (email.equals("")) {
             txtEmail.setError(getString(R.string.campo_obrigatorio));
             validar = false;
         }
 
-        if(validar){
+        if (validar) {
 
             /**
              * OBJETIVO.......: OCULTAR ELEMENTOS APOS O ENVIO / EXIBIR PROGRESSO
@@ -280,7 +307,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
             /**
              * OBJETIVO.......: ENVIAR APENAS SE TIVER INTERNET
              */
-            if(AndroidUtils.isNetworkAvailable(CheckInActivity.this)) {
+            if (AndroidUtils.isNetworkAvailable(CheckInActivity.this)) {
                 /**
                  * OBJETIVO.......: ENVIAR DADOS
                  */
@@ -298,6 +325,7 @@ public class CheckInActivity extends AppCompatActivity implements View.OnClickLi
 
     /**
      * SNACKBAR ACTION
+     *
      * @param collapsingToolbarLayout
      * @param msg
      */
