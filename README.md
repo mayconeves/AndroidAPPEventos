@@ -63,6 +63,6 @@ Conhecer localização
 
 
 ## Apk Download
-<a href="https://github.com/mayconeves/AndroidAPPEventos/blob/master/app-release/app-release.apk">Download</a>
+<a href="https://github.com/mayconeves/AndroidAPPEventos/raw/master/app-release/app-release.apk">Download</a>
 
 
